@@ -127,8 +127,37 @@ footer {
     background-color: #222;
     color: white;
 }
+.projects {
+    text-align: center;
+    padding: 70px 20px;
+    background-color: white;
+}
+
+.projects h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.project-box {
+    display: inline-block;
+    vertical-align: top;
+    width: 250px;
+    margin: 15px;
+    padding: 30px;
+    background-color: #f5f7fb;
+    border-radius: 10px;
+}
+
+.project-box h3 {
+    color: #1a73e8;
+}
 @media (max-width: 768px) {
 
+    .project-box {
+    display: block;
+    width: 80%;
+    margin: 15px auto;
+}
     header {
         flex-direction: column;
         padding: 20px;
