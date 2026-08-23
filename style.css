@@ -1,0 +1,147 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f7fb;
+    color: #222;
+}
+
+
+/* Navigation */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background-color: white;
+}
+
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+
+/* Hero */
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+
+.hero h1 {
+    font-size: 60px;
+}
+
+
+.hero p {
+    font-size: 20px;
+}
+
+
+/* Button */
+
+button {
+    background-color: #1a73e8;
+    color: white;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* Services */
+
+.services {
+    text-align: center;
+    padding: 60px;
+}
+
+
+.service-box {
+    display: inline-block;
+    width: 220px;
+    background-color: white;
+    margin: 15px;
+    padding: 25px;
+    border-radius: 10px;
+}
+.about {
+    text-align: center;
+    padding: 70px 20px;
+    background-color: white;
+}
+
+.about h2 {
+    font-size: 40px;
+}
+
+.about p {
+    max-width: 700px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.6;
+}
+.contact {
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.contact form {
+    max-width: 500px;
+    margin: auto;
+}
+
+.contact input,
+.contact textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.contact textarea {
+    height: 120px;
+}
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #222;
+    color: white;
+}
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+
+    nav {
+        margin-top: 15px;
+    }
+
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+
+    .services {
+        padding: 20px;
+    }
+
+
+    .service-box {
+        width: 80%;
+        margin: 15px auto;
+        display: block;
+    }
+
+}
