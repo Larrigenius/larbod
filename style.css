@@ -157,6 +157,24 @@ footer {
 .project-box h3 {
     color: #1a73e8;
 }
+.project-details {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    text-align: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.project-details h2 {
+    color: #1a73e8;
+    margin-bottom: 15px;
+}
+
+.project-details p {
+    line-height: 1.6;
+}
 @media (max-width: 768px) {
 
     .project-box {
@@ -195,4 +213,7 @@ footer {
 header img {
     width: 120px;
     height: auto;
+}
+.project-button {
+    margin-top: 15px;
 }
