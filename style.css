@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -34,6 +37,9 @@ nav a {
 }
 nav a:hover {
     color: #1a73e8;
+    nav a {
+    transition: color 0.3s ease;
+}
 }
 
 /* Hero */

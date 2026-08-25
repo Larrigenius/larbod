@@ -11,16 +11,16 @@
     <header>
         <img src="assets/images/larbod-logo.png" alt="Larbod Logo">
 
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Services</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
+<nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+</nav>
     </header>
 
 
-    <section class="hero">
+    <section class="hero" id="home">
 
         <h1>Build. Automate. Scale.</h1>
 
@@ -36,7 +36,7 @@
     </section>
 
 
-    <section class="services">
+    <section class="services" id="services">
 
         <h2>Our Services</h2>
 
@@ -64,7 +64,7 @@
 
     <section class="about">
 
-    <h2>About Larbod</h2>
+    <section class="about" id="about">
 
     <p>
         Larbod creates modern digital solutions that help
@@ -95,23 +95,21 @@
 
 </section>
 
-<section class="contact">
+<section class="contact" id="contact">
 
-    <h2>Contact Us</h2>
+<h2>Contact Us</h2>
 
-    <form>
+    <form id="contactForm">
 
-        <input type="text" placeholder="Your Name">
+    <input type="text" id="name" placeholder="Your Name">
 
-        <input type="email" placeholder="Your Email">
+    <input type="email" id="email" placeholder="Your Email">
 
-        <textarea placeholder="Your Message"></textarea>
+    <textarea id="message" placeholder="Your Message"></textarea>
 
-        <button type="submit">
-            Send Message
-        </button>
+    <button type="submit">Send Message</button>
 
-    </form>
+</form>
 
 </section>
 
