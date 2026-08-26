@@ -43,21 +43,33 @@
         <div class="service-box">
             <h3>Website Development</h3>
             <p>Professional websites for businesses.</p>
+            <button class="service-button" onclick="selectService('Website Development')">
+    Request Service
+</button>
         </div>
 
         <div class="service-box">
             <h3>Automation</h3>
             <p>Smart systems that save time and effort.</p>
+            <button class="service-button" onclick="selectService('Automation')">
+    Request Service
+</button>
         </div>
 
         <div class="service-box">
             <h3>API Development</h3>
             <p>Connecting applications together.</p>
+            <button class="service-button" onclick="selectService('API Development')">
+    Request Service
+</button>
         </div>
 
         <div class="service-box">
             <h3>AI Solutions</h3>
             <p>Using AI to improve businesses.</p>
+            <button class="service-button" onclick="selectService('AI Solutions')">
+                Request Service
+</button>
         </div>
 
     </section>
@@ -123,7 +135,23 @@
 
 <label for="email">Email</label>
 <input type="email" id="email" placeholder="Your Email" required>
+<label for="budget">Budget</label>
+<select id="budget" required>
+    <option value="">Select Budget</option>
+    <option value="under-500">Under $500</option>
+    <option value="500-1000">$500 - $1,000</option>
+    <option value="1000-5000">$1,000 - $5,000</option>
+    <option value="5000-plus">$5,000+</option>
+</select>
 
+<label for="projectType">Project Type</label>
+<select id="projectType" required>
+    <option value="">Select Project Type</option>
+    <option value="website">Website Development</option>
+    <option value="automation">Automation</option>
+    <option value="api">API Development</option>
+    <option value="ai">AI Solutions</option>
+</select>
 <label for="message">Message</label>
 <textarea id="message" placeholder="Your Message" required></textarea>
 

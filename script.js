@@ -8,14 +8,22 @@ contactForm.addEventListener("submit", function(event) {
 
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
+    const budget = document.getElementById("budget").value;
+    const projectType = document.getElementById("projectType").value;
     const message = document.getElementById("message").value.trim();
     const formMessage = document.getElementById("formMessage");
 
-    if (name === "" || email === "" || message === "") {
-        formMessage.textContent = "Please fill in all fields.";
-        formMessage.className = "error";
-        return;
-    }
+    if (
+    name === "" ||
+    email === "" ||
+    budget === "" ||
+    projectType === "" ||
+    message === ""
+) {
+    formMessage.textContent = "Please complete all project details.";
+    formMessage.className = "error";
+    return;
+}
 
     formMessage.textContent = "Thank you! Your message is ready to be sent.";
     formMessage.className = "success";
@@ -46,4 +54,23 @@ function viewProject(project) {
     document.getElementById("projectDetails").scrollIntoView({
     behavior: "smooth"
 });
+}
+function selectService(service) {
+    const projectType = document.getElementById("projectType");
+    const message = document.getElementById("message");
+
+    const serviceValues = {
+        "Website Development": "website",
+        "Automation": "automation",
+        "API Development": "api",
+        "AI Solutions": "ai"
+    };
+
+    projectType.value = serviceValues[service];
+
+    message.value = "I am interested in: " + service;
+
+    document.getElementById("contact").scrollIntoView({
+        behavior: "smooth"
+    });
 }
