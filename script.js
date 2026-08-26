@@ -6,16 +6,20 @@ const contactForm = document.getElementById("contactForm");
 contactForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
-const name = document.getElementById("name").value.trim();
-const email = document.getElementById("email").value.trim();
-const message = document.getElementById("message").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const formMessage = document.getElementById("formMessage");
 
     if (name === "" || email === "" || message === "") {
-        alert("Please fill in all fields.");
+        formMessage.textContent = "Please fill in all fields.";
+        formMessage.className = "error";
         return;
     }
 
-    alert("Thank you! Your message is ready to be sent.");
+    formMessage.textContent = "Thank you! Your message is ready to be sent.";
+    formMessage.className = "success";
+
     contactForm.reset();
 });
 function viewProject(project) {
