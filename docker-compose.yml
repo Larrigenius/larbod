@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: larbod-postgres
+    restart: always
+
+    environment:
+      POSTGRES_USER: larbod_user
+      POSTGRES_PASSWORD: larbod_password
+      POSTGRES_DB: larbod
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_data:
