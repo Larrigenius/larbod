@@ -29,6 +29,7 @@ contactForm.addEventListener("submit", function(event) {
 submitButton.disabled = true;
 submitButton.textContent = "Sending...";
 
+const response = await
 fetch("http://127.0.0.1:8000/contact", {
     method: "POST",
     headers: {
@@ -42,11 +43,13 @@ fetch("http://127.0.0.1:8000/contact", {
         message: message
     })
 })
-.then(response => response.json())
-.then(data => {
+.const data = await response.json();
 
-    formMessage.textContent = "Message sent successfully!";
-    formMessage.className = "success";
+if (!response.ok) {
+    throw new Error(data.detail || "Message could not be sent");
+}
+
+formMessage.textContent = "Message sent successfully!";
 
     contactForm.reset();
 })

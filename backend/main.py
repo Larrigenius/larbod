@@ -1,11 +1,10 @@
+import logging
+logger = logging.getLogger(__name__)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from schemas import ContactCreate
-
-
-app = FastAPI()
-
+app = FastAPI(title="Larbod")
 
 app.add_middleware(
     CORSMiddleware,
@@ -13,17 +12,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 @app.get("/")
 def home():
     return {"message": "Larbod backend is running!"}
-
-
-@app.post("/contact")
-def create_contact(contact: ContactCreate):
-
-    return {
-        "message": "Contact message received",
-        "data": contact
-    }
