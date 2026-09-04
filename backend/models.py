@@ -1,10 +1,11 @@
-from sqlalchemy import Column, Integer, String, Text
+from datetime import datetime
+
+from sqlalchemy import Column, DateTime, Integer, String, Text
 
 from database import Base
 
 
 class Contact(Base):
-
     __tablename__ = "contacts"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -18,3 +19,9 @@ class Contact(Base):
     project_type = Column(String(50), nullable=False)
 
     message = Column(Text, nullable=False)
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow,
+        nullable=False
+    )

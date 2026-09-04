@@ -3,7 +3,7 @@ function contactMessage() {
 }
 const contactForm = document.getElementById("contactForm");
 
-contactForm.addEventListener("submit", function(event) {
+contactForm.addEventListener("submit", async function(event) {
     console.log("Form submitted");
     event.preventDefault();
 
@@ -16,58 +16,65 @@ contactForm.addEventListener("submit", function(event) {
     const submitButton = document.getElementById("submitButton");
 
     if (
-    name === "" ||
-    email === "" ||
-    budget === "" ||
-    projectType === "" ||
-    message === ""
-) {
-    formMessage.textContent = "Please complete all project details.";
-    formMessage.className = "error";
-    return;
-}
-submitButton.disabled = true;
-submitButton.textContent = "Sending...";
+        name === "" ||
+        email === "" ||
+        budget === "" ||
+        projectType === "" ||
+        message === ""
+    ) {
+        formMessage.textContent = "Please complete all project details.";
+        formMessage.className = "error";
+        return;
+    }
 
-const response = await
-fetch("http://127.0.0.1:8000/contact", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        name: name,
-        email: email,
-        budget: budget,
-        project_type: projectType,
-        message: message
-    })
-})
-.const data = await response.json();
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
 
-if (!response.ok) {
-    throw new Error(data.detail || "Message could not be sent");
-}
+    try {
+        const response = await fetch("/contact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                budget: budget,
+                project_type: projectType,
+                message: message
+            })
+        });
 
-formMessage.textContent = "Message sent successfully!";
+        const data = await response.json();
 
-    contactForm.reset();
-})
-.catch(error => {
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "Message could not be sent"
+            );
+        }
 
-    formMessage.textContent = "Something went wrong. Please try again.";
-    formMessage.className = "error";
-})
-.finally(() => {
+        formMessage.textContent = "Message sent successfully!";
+        formMessage.className = "success";
 
-    submitButton.disabled = false;
-    submitButton.textContent = "Send Message";
-});
+        contactForm.reset();
 
+    } catch (error) {
+        console.error(error);
+
+        formMessage.textContent =
+            "Something went wrong. Please try again.";
+
+        formMessage.className = "error";
+
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Message";
+    }
 });
 function viewProject(project) {
     const title = document.getElementById("projectTitle");
     const description = document.getElementById("projectDescription");
+
     if (project === "website") {
         title.textContent = "Business Website";
         description.textContent =
@@ -92,6 +99,7 @@ function viewProject(project) {
 function selectService(service) {
     const projectType = document.getElementById("projectType");
     const message = document.getElementById("message");
+
     const serviceValues = {
         "Website Development": "website",
         "Automation": "automation",

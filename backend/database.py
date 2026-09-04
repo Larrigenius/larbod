@@ -6,19 +6,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from config import settings
 
-load_dotenv()
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-if not all([
-    settings.db_user,
-    settings.db_password,
-    settings.db_host,
-    settings.db_port,
-    settings.db_name,
-]):
-    raise RuntimeError("Database configuration is incomplete")
-
-
 DATABASE_URL = URL.create(
     drivername="postgresql+psycopg2",
     username=settings.db_user,

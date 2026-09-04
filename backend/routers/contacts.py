@@ -1,19 +1,23 @@
-from typing import Any
-from routers import contacts
+import logging
+
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+from database import get_db
 from models import Contact
 from schemas import ContactCreate
 
 
 router = APIRouter()
 
-app.include_router(contacts.router)
+logger = logging.getLogger(__name__)
 
-@app.post("/contact")
+
+@router.post("/contact")
 def create_contact(
     contact: ContactCreate,
-    db: Any = Depends(get_db)
+    db: Session = Depends(get_db)
 ):
-
     new_contact = Contact(
         name=contact.name,
         email=contact.email,
@@ -26,9 +30,11 @@ def create_contact(
         db.add(new_contact)
         db.commit()
         db.refresh(new_contact)
+
     except Exception:
         db.rollback()
         logger.exception("Failed to save contact message")
+
         raise HTTPException(
             status_code=500,
             detail="Unable to save contact message"
