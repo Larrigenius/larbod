@@ -19,6 +19,10 @@ class Settings:
 
         self.validate()
 
+    @property
+    def is_production(self):
+        return self.environment == "production"
+
     def validate(self):
         required_settings = {
             "DB_USER": self.db_user,
@@ -36,6 +40,13 @@ class Settings:
             raise RuntimeError(
                 "Missing required environment variables: "
                 + ", ".join(missing)
+            )
+
+        allowed_environments = {"development", "production"}
+
+        if self.environment not in allowed_environments:
+            raise RuntimeError(
+                "ENVIRONMENT must be 'development' or 'production'"
             )
 
 
