@@ -101,13 +101,13 @@ function selectService(service) {
     const message = document.getElementById("message");
 
     const serviceValues = {
-        "Website Development": "website",
-        "Automation": "automation",
-        "API Development": "api",
-        "AI Solutions": "ai"
-    };
+    "Website Development": "Website Development",
+    "Automation": "Automation",
+    "API Development": "API Development",
+    "AI Solutions": "AI Solutions"
+};
 
-    projectType.value = serviceValues[service];
+    projectType.value = service;
 
     message.value = "I am interested in: " + service;
 
