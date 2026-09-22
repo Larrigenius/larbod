@@ -1,5 +1,3 @@
-import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -27,6 +25,8 @@ SessionLocal = sessionmaker(
 
 
 Base = declarative_base()
+
+
 def get_db():
     db = SessionLocal()
 
