@@ -13,3 +13,4 @@ venv/
 .venv/
 backend/venv/
 backups/
+larbod_schema_backup.sql
