@@ -10,6 +10,12 @@ COPY backend/ ./backend/
 COPY index.html style.css script.js ./
 COPY assets/ ./assets/
 
+RUN useradd --create-home --shell /bin/bash larbod
+
+RUN chown -R larbod:larbod /app
+
+USER larbod
+
 WORKDIR /app/backend
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from config import settings
-from routers import contacts
+from routers import auth, contacts
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,6 +30,7 @@ def create_app(app_settings=settings) -> FastAPI:
         return response
 
     app.include_router(contacts.router)
+    app.include_router(auth.router)
 
     app.mount(
         "/assets",

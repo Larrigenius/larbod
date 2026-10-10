@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 from database import SessionLocal
-from models import Contact
+from models import Contact, User, UserSession
 from unittest.mock import MagicMock
 from database import get_db
 from main import create_app
@@ -156,3 +156,175 @@ def test_docs_hidden_in_production():
     assert production_client.get("/docs").status_code == 404
     assert production_client.get("/redoc").status_code == 404
     assert production_client.get("/openapi.json").status_code == 404
+
+def test_register_user():
+    response = client.post(
+        "/auth/register",
+        json={
+            "email": "auth-register@example.com",
+            "password": "password123",
+        },
+    )
+
+    assert response.status_code == 201
+
+    data = response.json()
+
+    assert data["message"] == "User registered successfully"
+    assert data["email"] == "auth-register@example.com"
+    assert "user_id" in data
+
+
+def test_register_duplicate_user():
+    email = "duplicate@example.com"
+
+    first_response = client.post(
+        "/auth/register",
+        json={
+            "email": email,
+            "password": "password123",
+        },
+    )
+
+    assert first_response.status_code == 201
+
+    second_response = client.post(
+        "/auth/register",
+        json={
+            "email": email,
+            "password": "password123",
+        },
+    )
+
+    assert second_response.status_code == 409
+    assert second_response.json()["detail"] == "Email already registered"
+
+
+def test_login_success():
+    email = "login-test@example.com"
+    password = "password123"
+
+    register_response = client.post(
+        "/auth/register",
+        json={
+            "email": email,
+            "password": password,
+        },
+    )
+
+    assert register_response.status_code == 201
+
+    response = client.post(
+        "/auth/login",
+        json={
+            "email": email,
+            "password": password,
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.json()["message"] == "Login successful"
+    assert "larbod_session" in response.cookies
+
+
+def test_login_wrong_password():
+    email = "wrong-password@example.com"
+
+    register_response = client.post(
+        "/auth/register",
+        json={
+            "email": email,
+            "password": "password123",
+        },
+    )
+
+    assert register_response.status_code == 201
+
+    response = client.post(
+        "/auth/login",
+        json={
+            "email": email,
+            "password": "wrong-password",
+        },
+    )
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Invalid email or password"
+
+
+def test_me_requires_authentication():
+    client.cookies.clear()
+
+    response = client.get("/auth/me")
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Not authenticated"
+
+
+def test_me_with_valid_session():
+    email = "me-test@example.com"
+    password = "password123"
+
+    register_response = client.post(
+        "/auth/register",
+        json={
+            "email": email,
+            "password": password,
+        },
+    )
+
+    assert register_response.status_code == 201
+
+    login_response = client.post(
+        "/auth/login",
+        json={
+            "email": email,
+            "password": password,
+        },
+    )
+
+    assert login_response.status_code == 200
+
+    response = client.get("/auth/me")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert data["email"] == email
+    assert data["is_active"] is True
+
+
+def test_logout_invalidates_session():
+    email = "logout-test@example.com"
+    password = "password123"
+
+    client.post(
+        "/auth/register",
+        json={
+            "email": email,
+            "password": password,
+        },
+    )
+
+    login_response = client.post(
+        "/auth/login",
+        json={
+            "email": email,
+            "password": password,
+        },
+    )
+
+    assert login_response.status_code == 200
+
+    me_response = client.get("/auth/me")
+    assert me_response.status_code == 200
+
+    logout_response = client.post("/auth/logout")
+
+    assert logout_response.status_code == 200
+    assert logout_response.json()["message"] == "Logout successful"
+
+    me_after_logout = client.get("/auth/me")
+
+    assert me_after_logout.status_code == 401

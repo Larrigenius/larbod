@@ -18,3 +18,11 @@ class ContactCreate(BaseModel):
     ]
 
     message: str = Field(min_length=10, max_length=2000)
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=128)
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=128)
